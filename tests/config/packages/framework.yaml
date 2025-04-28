@@ -1,0 +1,12 @@
+framework:
+  test: true
+  session:
+    storage_factory_id: session.storage.factory.mock_file
+
+  http_client:
+    scoped_clients:
+      gotenberg.client:
+        base_uri: 'http://gotenberg-bundle_gotenberg'
+
+sensiolabs_gotenberg:
+  http_client: 'gotenberg.client'

@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <!-- PDF file generator -->
+        <service id="dgarden.gotenberg.pdf_file_generator" class="DigitalGarden\GotenbergBundle\Generator\PdfFileGenerator">
+            <argument type="service" id="sensiolabs_gotenberg.screenshot" />
+            <argument type="service" id="sensiolabs_gotenberg.pdf" />
+            <argument type="service" id="filesystem" />
+            <argument type="service" id="logger" />
+        </service>
+        <service id="dgarden.gotenberg.generator" alias="dgarden.gotenberg.pdf_file_generator" />
+        <service id="DigitalGarden\GotenbergBundle\Generator\PdfFileGeneratorInterface" alias="dgarden.gotenberg.pdf_file_generator" />
+
+
+        <!-- Commands -->
+        <service id="dgarden.gotenberg.command.html_pdf_generate" class="DigitalGarden\GotenbergBundle\Command\HtmlPdfGenerateCommand">
+            <tag command="dgarden:pdf:html">console.command</tag>
+            <argument type="service" id="dgarden.gotenberg.pdf_file_generator" />
+        </service>
+        <service id="dgarden.gotenberg.command.pdf_merge" class="DigitalGarden\GotenbergBundle\Command\MergePdfCommand">
+            <tag command="dgarden:pdf:merge">console.command</tag>
+            <argument type="service" id="dgarden.gotenberg.pdf_file_generator" />
+        </service>
+        <service id="dgarden.gotenberg.command.template_pdf_generate" class="DigitalGarden\GotenbergBundle\Command\TemplatePdfGenerateCommand">
+            <tag command="dgarden:pdf:template">console.command</tag>
+            <argument type="service" id="dgarden.gotenberg.pdf_file_generator" />
+        </service>
+        <service id="dgarden.gotenberg.command.url_pdf_generate" class="DigitalGarden\GotenbergBundle\Command\UrlPdfGenerateCommand">
+            <tag command="dgarden:pdf:url">console.command</tag>
+            <argument type="service" id="dgarden.gotenberg.pdf_file_generator" />
+        </service>
+    </services>
+</container>
