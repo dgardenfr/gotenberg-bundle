@@ -64,7 +64,6 @@ readonly class PdfFileGenerator implements PdfFileGeneratorInterface
 
         $assets = [];
         if (extension_loaded('dom')) {
-            $content = file_get_contents($file);
             $dom = new DOMDocument();
             $dom->load($file);
 
@@ -108,6 +107,8 @@ readonly class PdfFileGenerator implements PdfFileGeneratorInterface
             ->files(...$paths)
             ->generate()
             ->process();
+
+        return new SplFileInfo($output);
     }
 
     /**

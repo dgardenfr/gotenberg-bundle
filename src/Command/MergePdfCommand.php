@@ -6,7 +6,6 @@
 namespace DigitalGarden\GotenbergBundle\Command;
 
 use DigitalGarden\GotenbergBundle\Generator\PdfFileGeneratorInterface;
-use SplFileInfo;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
