@@ -3,8 +3,7 @@ options:
   docker: true
 
 pipelines:
-  branches:
-    develop:
+  default:
       - step:
           name: "Install & Test"
           caches:
