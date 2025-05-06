@@ -53,10 +53,11 @@ class DigitalGardenGotenbergBundleTest extends TestCase
         $this->assertCount(1, $tree->getChildNodeDefinitions());
         $this->assertArrayHasKey('gotenberg', $tree->getChildNodeDefinitions());
         $gotenberg = $tree->getChildNodeDefinitions()['gotenberg'];
-        $this->assertCount(0, $gotenberg->getChildNodeDefinitions());
+        $this->assertCount(1, $gotenberg->getChildNodeDefinitions());
+        $this->assertArrayHasKey('output_path', $gotenberg->getChildNodeDefinitions());
 
         $builder = new ContainerBuilder();
-        $locator = new FileLocator(__DIR__);
+        $locator = new FileLocator([__DIR__, __DIR__ . '/Resources']);
         $loader = new PhpFileLoader($builder, $locator);
         $xmlLoader = new XmlFileLoader($builder, $locator);
         $loader->setResolver(
@@ -69,7 +70,7 @@ class DigitalGardenGotenbergBundleTest extends TestCase
             $builder,
             $loader,
             $instances,
-            __DIR__ . '/config',
+            'Resources/config',
             'test',
             'test'
         );

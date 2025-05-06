@@ -28,6 +28,8 @@ class UrlPdfGenerateCommandTest extends AbstractCommandTest
      * @covers \DigitalGarden\GotenbergBundle\Command\HtmlPdfGenerateCommand::configure
      * @covers \DigitalGarden\GotenbergBundle\Command\HtmlPdfGenerateCommand::execute
      * @covers \DigitalGarden\GotenbergBundle\Command\HtmlPdfGenerateCommand::generate
+     * @covers \DigitalGarden\GotenbergBundle\Generator\PdfFileGeneratorOptions::__construct
+     * @covers \DigitalGarden\GotenbergBundle\Model\Command\AbstractPdfGenerationCommand::getOptions
      *
      * @return void
      */

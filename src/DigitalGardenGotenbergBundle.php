@@ -26,7 +26,9 @@ class DigitalGardenGotenbergBundle extends AbstractBundle
     {
         $definition->rootNode()
             ->children()
-                ->arrayNode('gotenberg')
+                ->arrayNode('gotenberg')->children()
+                    ->scalarNode('output_path')->defaultValue('%kernel.project_dir%/var/pdf')->end()
+                ->end()->addDefaultsIfNotSet()
             ->end()
         ;
     }
@@ -39,8 +41,10 @@ class DigitalGardenGotenbergBundle extends AbstractBundle
         $bundle = $config['gotenberg'] ?? [];
 
         // Load services
-        $container->import(__DIR__ . '/../config/services.xml');
+        $container->import(__DIR__ . '/../config/services.php');
 
         // Configure parameters
+        $container->parameters()->set('dgarden.gotenberg.output_path', $bundle['output_path'] ?? null);
     }
+
 }

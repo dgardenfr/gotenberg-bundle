@@ -2,9 +2,9 @@
 
 namespace DigitalGarden\GotenbergBundle\Model\Command;
 
-use DigitalGarden\GotenbergBundle\Generator\PdfFileGenerator;
+use Composer\Console\Input\InputOption;
 use DigitalGarden\GotenbergBundle\Generator\PdfFileGeneratorInterface;
-use Sensiolabs\GotenbergBundle\Exception\ClientException;
+use DigitalGarden\GotenbergBundle\Generator\PdfFileGeneratorOptions;
 use SplFileInfo;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -20,7 +20,12 @@ abstract class AbstractPdfGenerationCommand extends Command
     /**
      * Output file argument name.
      */
-    const ARGUMENT_OUTPUT_FILE = 'output_file';
+    public const ARGUMENT_OUTPUT_FILE = 'output_file';
+
+    /**
+     * Generate async option.
+     */
+    public const OPTION_ASYNC = 'async';
 
     /**
      * Output file.
@@ -77,6 +82,13 @@ abstract class AbstractPdfGenerationCommand extends Command
             'The output file.',
         );
 
+        $this->addOption(
+            self::OPTION_ASYNC,
+            null,
+            InputOption::VALUE_NONE,
+            'Generate the file asynchronously.',
+        );
+
         return $this;
     }
 
@@ -112,6 +124,20 @@ abstract class AbstractPdfGenerationCommand extends Command
         );
 
         return $values;
+    }
+
+    /**
+     * Get the PDF file generator options.
+     *
+     * @param InputInterface $input Command input.
+     *
+     * @return PdfFileGeneratorOptions
+     */
+    protected function getOptions(InputInterface $input): PdfFileGeneratorOptions
+    {
+        return new PdfFileGeneratorOptions([
+            PdfFileGeneratorOptions::OPTION_ASYNC => $input->getOption(self::OPTION_ASYNC),
+        ]);
     }
 
     /**

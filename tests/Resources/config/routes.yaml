@@ -1,0 +1,2 @@
+dgarden_gotenberg:
+  resource: '@DigitalGardenGotenbergBundle/config/routes.php'

@@ -63,6 +63,7 @@ class TemplatePdfGenerateCommand extends AbstractPdfGenerationCommand
             $input->getArgument(self::ARGUMENT_TEMPLATE),
             $this->outputFile,
             array_merge($context, $context),
+            $this->getOptions($input),
         );
     }
 }

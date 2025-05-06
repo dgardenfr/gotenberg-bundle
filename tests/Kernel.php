@@ -15,12 +15,25 @@ final class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
 
+    public function __construct()
+    {
+        parent::__construct('test', false);
+    }
+
     /**
      * {@inheritDoc}
      */
     public function getProjectDir(): string
     {
         return __DIR__;
+    }
+
+    /**
+     * @see MicroKernelTrait::getConfigDir()
+     */
+    private function getConfigDir(): string
+    {
+        return __DIR__ . '/Resources/config';
     }
 }
  

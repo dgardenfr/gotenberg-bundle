@@ -13,7 +13,9 @@
         "symfony/test-pack": "^1.1",
         "symfony/framework-bundle": "^7.1",
         "symfony/yaml": "^7.2",
-        "symfony/http-client": "^7.2"
+        "symfony/http-client": "^7.2",
+        "composer": "*",
+        "composer/composer": "^2.8"
     },
     "license": "MIT",
     "autoload": {
@@ -25,5 +27,11 @@
         "psr-4": {
             "DigitalGarden\\GotenbergBundle\\Tests\\": "tests/"
         }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "DigitalGarden\\GotenbergBundle\\Composer\\ComposerInstall::createConfigurationFile",
+            "DigitalGarden\\GotenbergBundle\\Composer\\ComposerInstall::createRouteFile"
+        ]
     }
 }

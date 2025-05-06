@@ -5,7 +5,10 @@
 
 namespace DigitalGarden\GotenbergBundle\Command;
 
+use Composer\Console\Input\InputOption;
 use DigitalGarden\GotenbergBundle\Generator\PdfFileGeneratorInterface;
+use DigitalGarden\GotenbergBundle\Model\Command\AbstractPdfGenerationCommand;
+use SplFileInfo;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -14,19 +17,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Generate a PDF file from HTML or an HTML file.
  */
-class MergePdfCommand extends Command
+class MergePdfCommand extends AbstractPdfGenerationCommand
 {
     public const ARGUMENT_FILES = 'files';
-
-    /**
-     * @param PdfFileGeneratorInterface $pdfFileGenerator Pdf file generator.
-     */
-    public function __construct(
-        protected readonly PdfFileGeneratorInterface $pdfFileGenerator,
-    )
-    {
-        parent::__construct();
-    }
 
     /**
      * {@inheritDoc}
@@ -46,24 +39,31 @@ class MergePdfCommand extends Command
                 InputArgument::REQUIRED | InputArgument::IS_ARRAY,
                 'The files to merge. The last file given is used as the output file.'
             );
+
+        $this->addOption(
+            self::OPTION_ASYNC,
+            null,
+            InputOption::VALUE_NONE,
+            'Generate the file asynchronously.',
+        );
     }
 
     /**
      * {@inheritDoc}
      */
-    protected function execute(InputInterface $input, OutputInterface $output): int
+    protected function generate(InputInterface $input, OutputInterface $output): SplFileInfo
     {
         $files = $input->getArgument(self::ARGUMENT_FILES);
         $outputFile = array_pop($files);
 
-        $file = $this->pdfFileGenerator->merge($outputFile, ...$files);
+        return $this->pdfFileGenerator->mergeWithOptions($this->getOptions($input), $outputFile, ...$files);
+    }
 
-        if ($file->isReadable()) {
-            $output->writeln(sprintf('The pdf file has been generated at %s', $file->getPathname()));
-            return Command::SUCCESS;
-        }
+    /**
+     * {@inheritDoc}
+     */
+    protected function initialize(InputInterface $input, OutputInterface $output): void
+    {
 
-        $output->writeln(sprintf('Error while generated the pdf at %s, file not readable.', $file->getPathname()));
-        return Command::FAILURE;
     }
 }

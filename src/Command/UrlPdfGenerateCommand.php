@@ -46,6 +46,7 @@ class UrlPdfGenerateCommand extends AbstractPdfGenerationCommand
         return $this->pdfFileGenerator->url(
             $input->getArgument(self::ARGUMENT_URL),
             $this->outputFile,
+            $this->getOptions($input),
         );
     }
 }

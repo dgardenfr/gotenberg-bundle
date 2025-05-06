@@ -43,7 +43,7 @@ class HtmlPdfGenerateCommand extends AbstractPdfGenerationCommand
         $html = $input->getArgument(self::ARGUMENT_HTML);
 
         if (file_exists($html)) {
-            return $this->pdfFileGenerator->htmlFile($html, $this->outputFile);
+            return $this->pdfFileGenerator->htmlFile($html, $this->outputFile, $this->getOptions($input));
         }
 
         return $this->pdfFileGenerator->html($html, $this->outputFile);
