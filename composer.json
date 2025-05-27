@@ -1,7 +1,7 @@
 {
     "name": "dgarden/gotenberg-bundle",
     "description": "Gotenberg PDF generation bundle",
-    "version": "v1.0.0",
+    "version": "v0.2.0",
     "type": "symfony-bundle",
     "require": {
         "symfony/http-kernel": "^7.1",
