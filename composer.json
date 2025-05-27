@@ -4,18 +4,7 @@
     "version": "v0.2.0",
     "type": "symfony-bundle",
     "require": {
-        "symfony/http-kernel": "^7.1",
-        "symfony/console": "^7.1",
-        "sensiolabs/gotenberg-bundle": "^0.3.1"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^9.5",
-        "symfony/test-pack": "^1.1",
-        "symfony/framework-bundle": "^7.1",
-        "symfony/yaml": "^7.2",
-        "symfony/http-client": "^7.2",
-        "composer": "*",
-        "composer/composer": "^2.8"
+        "sensiolabs/gotenberg-bundle": "^0.3"
     },
     "license": "MIT",
     "autoload": {
